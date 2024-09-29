@@ -38,6 +38,8 @@ INSTALLED_APPS = [
 
     # internal apps
     'phone.apps.PhoneConfig',
+    'account.apps.AccountConfig',
+
 ]
 
 MIDDLEWARE = [
