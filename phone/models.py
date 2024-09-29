@@ -28,4 +28,3 @@ class Phone(models.Model):
 
     def __str__(self):
         return self.model
-
