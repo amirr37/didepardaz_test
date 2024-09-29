@@ -2,7 +2,7 @@
     <div>Dide pardaz</div>
     <nav>
         {% if request.user.is_authenticated %}
-            <a href="#logout">Logout</a>
+            <a href="{% url 'account:logout' %}">Logout</a>
             <a href="#reports">Reports</a>
         {% else %}
             <a href="{% url 'account:login' %}">Login</a>

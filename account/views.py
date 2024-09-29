@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views import View
@@ -59,3 +60,12 @@ class UserLoginView(View):
             messages.error(request, 'Invalid username or password')
 
         return render(request, self.template_name, {'form': form})
+
+
+class UserLogoutView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            logout(request)
+            messages.success(request, 'You have been logged out')
+            return redirect('account:register')
