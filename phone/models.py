@@ -29,6 +29,8 @@ class Brand(models.Model):
 
 class Phone(models.Model):
     model = models.CharField(max_length=100, unique=True, verbose_name='phone Model', db_index=True)
+    brand = models.ForeignKey('Brand', on_delete=models.CASCADE, verbose_name='Brand', related_name='phones', null=True,
+                              blank=True)  # todo : remnvoe null blank
     price = models.PositiveIntegerField(validators=[MinValueValidator(1), ], verbose_name='Price', db_index=True)
     color = models.CharField(max_length=100, verbose_name='Color')
     screen_size = models.DecimalField(
