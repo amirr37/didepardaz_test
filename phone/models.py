@@ -3,8 +3,12 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 
+# todo : update database and remove null created and updated at
+
 class Country(models.Model):
     name = models.CharField(max_length=100, db_index=True, unique=True, verbose_name='Name')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at', null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated at', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -16,6 +20,8 @@ class Country(models.Model):
 class Brand(models.Model):
     title = models.CharField(max_length=100, db_index=True)
     country = models.ForeignKey('Country', on_delete=models.CASCADE, verbose_name='Country')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at', null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated at', null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -34,6 +40,8 @@ class Phone(models.Model):
     in_stock = models.BooleanField(default=True, verbose_name='In Stock')
     origin_country = models.ForeignKey('Country', on_delete=models.CASCADE, verbose_name='Origin Country',
                                        db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at', null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated at', null=True, blank=True)
 
     def __str__(self):
         return self.model
