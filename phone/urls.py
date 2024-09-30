@@ -7,4 +7,6 @@ urlpatterns = [
     path('create-phone/', views.CreatePhoneView.as_view(), name='create-phone'),
     path('update-phone/<int:id>', views.UpdatePhoneView.as_view(), name='update-phone'),
     path('delete-phone/<int:id>', views.DeletePhoneView.as_view(), name='delete-phone'),
+
+    path('report/korean-brands/', views.KoreanBrandsAPIView.as_view(), name='report-korean-brands'),
 ]
