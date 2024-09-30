@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.template.defaultfilters import default
 
 
 # todo : update database and remove null created and updated at
@@ -9,6 +10,7 @@ class Country(models.Model):
     name = models.CharField(max_length=100, db_index=True, unique=True, verbose_name='Name')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at', null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated at', null=True, blank=True)
+    is_active = models.BooleanField(default=True, verbose_name='is Active')
 
     def __str__(self):
         return self.name
@@ -22,6 +24,7 @@ class Brand(models.Model):
     country = models.ForeignKey('Country', on_delete=models.CASCADE, verbose_name='Country')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at', null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated at', null=True, blank=True)
+    is_active = models.BooleanField(default=True, verbose_name='is Active')
 
     def __str__(self):
         return self.title
@@ -44,6 +47,7 @@ class Phone(models.Model):
                                        db_index=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at', null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated at', null=True, blank=True)
+    is_active = models.BooleanField(default=True, verbose_name='is Active')
 
     def __str__(self):
         return self.model

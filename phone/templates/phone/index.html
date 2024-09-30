@@ -6,13 +6,34 @@
 
 {% block content %}
     {% if messages %}
-    <ul class="errorlist">
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
+        <ul class="errorlist">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <h1>index page h1</h1>
+    <ul>
+        <a href="#">
+            <li>Korean Brands</li>
+        </a>
+
+        <li>Phones by Brand
+            <ul>
+                {% for brand in brands %}
+                    <li><a href="{{ brand.url }}">{{ brand.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+
+        <a href="#">
+            <li>Phone Origin = brand.country</li>
+        </a>
+        <a href="#">
+            <li>Korean Brands</li>
+        </a>
+    </ul>
+
 {% endblock %}
 
 
