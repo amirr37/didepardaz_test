@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'phone.apps.PhoneConfig',
     'account.apps.AccountConfig',
 
+    # external apps
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
