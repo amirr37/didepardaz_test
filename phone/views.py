@@ -94,6 +94,8 @@ class KoreanBrandsAPIView(APIView):
 
 
 class PhoneOriginIsBrandCountryView(APIView):
+    """ This API returns mobiles whose country of manufacture is the same as the country of its brand."""
+
     def get(self, request):
         phones = Phone.objects.filter(origin_country=F('brand__country'))
         # Serialize the matching phones
@@ -104,6 +106,7 @@ class PhoneOriginIsBrandCountryView(APIView):
 
 
 class BrandPhonesAPIView(ListAPIView):
+    """ this API provides phones of a specific brand"""
     serializer_class = PhoneSerializer
 
     def get_queryset(self):
