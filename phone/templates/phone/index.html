@@ -21,12 +21,12 @@
         <li>Phones by Brand
             <ul>
                 {% for brand in brands %}
-                    <li><a href="{{ brand.url }}">{{ brand.name }}</a></li>
+                    <li><a href="{% url 'phone:report-brand-phones' brand.title %}">{{ brand.title }}</a></li>
                 {% endfor %}
             </ul>
         </li>
 
-        <a href="#">
+        <a href="{% url 'phone:report-origin-brand-country' %}">
             <li>Phone Origin = brand.country</li>
         </a>
         <a href="#">

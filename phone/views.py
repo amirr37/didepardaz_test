@@ -2,18 +2,22 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib import messages
+from rest_framework.exceptions import NotFound
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from phone.forms import CreateUpdatePhoneForm
 from phone.models import Phone, Brand
-from phone.serializers import BrandSerializer
+from phone.serializers import BrandSerializer, PhoneSerializer
+from django.db.models import F
 
 
 # region templates
 class indexView(View):
     def get(self, request):
-        return render(request, 'phone/index.html')
+        brands = Brand.objects.all()
+        return render(request, 'phone/index.html', {'brands': brands})
 
 
 class CreatePhoneView(LoginRequiredMixin, View):
@@ -87,5 +91,26 @@ class KoreanBrandsAPIView(APIView):
 
         # Return the JSON response
         return Response({'brands': serializer.data}, status=status.HTTP_200_OK)
+
+
+class PhoneOriginIsBrandCountryView(APIView):
+    def get(self, request):
+        phones = Phone.objects.filter(origin_country=F('brand__country'))
+        # Serialize the matching phones
+        serializer = PhoneSerializer(phones, many=True)
+
+        # Return the JSON response
+        return Response({'phones': serializer.data}, status=status.HTTP_200_OK)
+
+
+class BrandPhonesAPIView(ListAPIView):
+    serializer_class = PhoneSerializer
+
+    def get_queryset(self):
+        brand_title = self.kwargs.get('title')
+
+        brand = get_object_or_404(Brand, title__iexact=brand_title)
+
+        return Phone.objects.filter(brand=brand)
 
 # endregion

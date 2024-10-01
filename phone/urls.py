@@ -9,4 +9,8 @@ urlpatterns = [
     path('delete-phone/<int:id>', views.DeletePhoneView.as_view(), name='delete-phone'),
 
     path('report/korean-brands/', views.KoreanBrandsAPIView.as_view(), name='report-korean-brands'),
+
+    path('report/origin-brand-country/', views.PhoneOriginIsBrandCountryView.as_view(),
+         name='report-origin-brand-country'),
+    path('report/brand-phones/<str:title>/', views.BrandPhonesAPIView.as_view(), name='report-brand-phones'),
 ]
