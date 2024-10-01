@@ -1,7 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
+    PasswordResetCompleteView
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 from django.contrib import messages
 
@@ -69,3 +72,22 @@ class UserLogoutView(LoginRequiredMixin, View):
             logout(request)
             messages.success(request, 'You have been logged out')
             return redirect('account:register')
+
+
+class UserPasswordResetView(PasswordResetView):
+    template_name = 'account/password_reset.html'
+    success_url = reverse_lazy('account:password-reset-done')  # in develop process it' not created yet
+    email_template_name = 'account/password_reset_email.html'
+
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'account/password_reset_done.html'
+
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'account/password_reset_confirm.html'
+    success_url = reverse_lazy("account:password-reset-complete")  # todo : built it
+
+
+class UserPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'account/password_reset_complete.html'

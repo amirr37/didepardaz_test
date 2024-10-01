@@ -14,7 +14,7 @@ from django.db.models import F
 
 
 # region templates
-class indexView(View):
+class indexView(LoginRequiredMixin, View):
     def get(self, request):
         brands = Brand.objects.all()
         return render(request, 'phone/index.html', {'brands': brands})

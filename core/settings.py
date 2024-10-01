@@ -130,3 +130,19 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'account.email_authentication.EmailBackend',
+]
+
+# email setting
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # provider
+EMAIL_PORT = 587  # based on prodiver
+EMAIL_USE_TLS = True  # for security
+EMAIL_HOST_USER = 'amirrj037@gmail.com'  # what email we use for send email
+EMAIL_HOST_PASSWORD = 'olcumuxoruvkoxsa'  # the password that connects to provider
+DEFAULT_FROM_EMAIL = 'Forza shop'
+
+
+LOGIN_URL = "account:login"
